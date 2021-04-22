@@ -10,7 +10,7 @@ public interface FacturaService  {
 
     FacturaDto editarPedido(FacturaDto factura) throws PruebaException;
 
-    void eliminarPedido(Long idFactura) throws PruebaException;
+    Double eliminarPedido(Long idFactura) throws PruebaException;
 
 
 }

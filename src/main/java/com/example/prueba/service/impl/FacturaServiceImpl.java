@@ -100,19 +100,22 @@ public class FacturaServiceImpl implements FacturaService {
                     factura.setProductos(dtoEdit.getProductos());
                     factura.setSubtotal(newTotal);
                     factura.setIva(newTotal*0.19);
+                    factura.setHoraRegistro(fechaEdicion);
 
                     if(newTotal >100000){
                         factura.setDomicilio(new Double(0));
                     }else if(newTotal >70000) {
                         factura.setDomicilio(  new Double(5000));
                         factura.setTotal(factura.getIva()+ factura.getSubtotal() +factura.getDomicilio());
+
                     }
                     else{
                         throw new PruebaException("El valor del pedido debe ser mínimo de 70000");
                     }
 
-                    factura.setHoraRegistro(fechaEdicion);
+
                     FacturaEntity f = facturaConverter.toEntity(factura);
+                    f.setIdFactura(existe.getIdFactura());
                     facturaRepository.save(f);
 
                 }
@@ -126,8 +129,22 @@ public class FacturaServiceImpl implements FacturaService {
     }
 
     @Override
-    public void eliminarPedido(Long idFactura) throws PruebaException {
+    public Double eliminarPedido(Long idFactura) throws PruebaException {
 
+       FacturaEntity existe= facturaRepository.findById(idFactura).get();
+       LocalDateTime now= LocalDateTime.now();
+       LocalDateTime registro = existe.getCreateAt();
+       LocalDateTime diferencia= registro.plusHours(12);
+       Double newTotal=0.0;
+
+       if(now.isBefore(diferencia)){
+           facturaRepository.deleteById(idFactura);
+        }
+       else{
+           newTotal= existe.getTotal()*0.10;
+           facturaRepository.deleteById(idFactura);
+       }
+       return newTotal;
     }
 
 
