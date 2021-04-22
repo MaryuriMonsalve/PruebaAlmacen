@@ -27,7 +27,7 @@ public class PedidoRest {
         return facturaServiceImpl.editarPedido(factura);
     }
 
-    @DeleteMapping("/Delete")
+    @DeleteMapping("/eliminar")
     public Double eliminarPedido(@RequestParam Long id){
         return facturaServiceImpl.eliminarPedido(id);
     }
