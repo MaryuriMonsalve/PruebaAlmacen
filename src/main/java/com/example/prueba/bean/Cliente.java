@@ -1,4 +1,13 @@
 package com.example.prueba.bean;
 
-public class Cliente {
+import lombok.Data;
+
+import java.io.Serializable;
+
+@Data
+public class Cliente implements Serializable {
+
+    private String cedula;
+    private String direccion;
+
 }

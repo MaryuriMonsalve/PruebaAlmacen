@@ -1,6 +1,6 @@
 package com.example.prueba.model;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 @Data
 @Entity
 @Table(name="producto")
-public class Producto {
+public class ProductoEntity {
 
     @Id
     @Column(name = "id_producto", unique = true, nullable = false)
@@ -19,6 +19,5 @@ public class Producto {
     private String nombre;
 
     @Column(name= "precio")
-    private BigDecimal precio;
-
+    private Double precio;
 }
